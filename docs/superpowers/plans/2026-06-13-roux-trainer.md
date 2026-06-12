@@ -12,6 +12,22 @@
 
 **Repo 慣例：** 直接在 main 工作（全新 repo）。Subagent 只寫檔案**不碰 git**，controller 驗證後 commit。測試指令：`cd /home/Yeimaoz/projects/roux-trainer && npx vitest run [path]`。UI 任務遵循 frontend-design 原則（深色主題、design tokens、RWD），完成後用 playwright 截圖供 controller 審視覺。
 
+**Spec:** `docs/superpowers/specs/2026-06-13-roux-trainer-design.md`（rev2）
+
+## Prerequisites
+
+- M1 已落地（commit 35647d9）：Vite 骨架、cubing.js 0.63 安裝、vite.config.ts 雙修設定、smoke-browser.mjs。
+- Node 22 + playwright chromium（WSL 已有快取）。
+- 無其他前置——greenfield，所有任務檔案均為新建（vite.config.ts/App.tsx 為修改）。
+
+## Acceptance Criteria（整案）
+
+1. `npx vitest run` 全綠（資料驗證 42+9+EOLR 條、alg 工具、指法、timer、出題引擎）。
+2. `npm run build` 成功；`node smoke-browser.mjs` PASS。
+3. 五頁功能可用（playwright 截圖人工驗收）：公式表 42 卡、練習器翻牌流、計時器記錄 + 統計、教學六章、首頁。
+4. GitHub Pages 上線，實際網址 5 路由 + 出題功能 smoke 通過。
+5. 教學內容經 controller 逐章審校（術語正確）。
+
 ---
 
 ## File Structure
@@ -67,6 +83,11 @@ describe("alg utils", () => {
     const a = "R U R' F M";
     expect(mirrorAlgM(mirrorAlgM(a))).toBe(a); // 自反性
     expect(mirrorAlgM("R")).toBe("L'");
+  });
+  it("wide/rotation 鏡像：r→l'、r2→l2、x→x'", () => {
+    expect(mirrorAlgM("r")).toBe("l'");
+    expect(mirrorAlgM("r2")).toBe("l2");
+    expect(mirrorAlgM("x")).toBe("x'");
   });
   it("鏡像後仍是合法可解 alg：alg鏡像 ∘ invert(alg鏡像) = identity", async () => {
     const m = mirrorAlgM("R U R' U' M' U M");
@@ -157,7 +178,26 @@ export async function uCornersSolved(p: KPattern): Promise<boolean> {
 }
 ```
 
-**Bootstrap 注意**：`EDGE_ORDER`/`CORNER_ORDER` 的名稱拼法要跟 cubing.js definition 一致（它可能用 "UFR" 而非 "URF"——以 definition 為準，helpers 對外名稱跟著它）。guard 測試（放 `tests/kpuzzle-helpers.test.ts`）：
+- [ ] **Step 1.2b Bootstrap orbit 名稱（填入 EDGE_ORDER/CORNER_ORDER，一次性）**
+
+在 repo 根目錄執行：
+
+```bash
+cd /home/Yeimaoz/projects/roux-trainer && node --input-type=module <<'EOF'
+import { cube3x3x3 } from "cubing/puzzles";
+const kp = await cube3x3x3.kpuzzle();
+const p = kp.defaultPattern();
+console.log("orbits:", JSON.stringify(kp.definition.orbits, null, 1).slice(0, 2000));
+const pu = p.applyAlg("U");
+console.log("EDGES default:", JSON.stringify(p.patternData["EDGES"]));
+console.log("EDGES after U:", JSON.stringify(pu.patternData["EDGES"]));
+console.log("CORNERS after R:", JSON.stringify(p.applyAlg("R").patternData["CORNERS"]));
+EOF
+```
+
+依輸出確認 orbit 名稱與 piece 順序慣例（cubing.js 3x3 definition 內含每個 piece 的名稱順序；拼法以 definition 為準，如 "UFR" vs "URF" 跟著它），填入 `EDGE_ORDER`/`CORNER_ORDER`。填完後 guard 測試驗證正確性（U 後 UF 不在家、DF 在家等行為斷言對不上 = 順序填錯）。
+
+guard 測試（放 `tests/kpuzzle-helpers.test.ts`）：
 
 ```ts
 // tests/kpuzzle-helpers.test.ts
@@ -446,6 +486,8 @@ async function solvableWithMU2(start: KPattern): Promise<boolean> {
 ```ts
 // src/data/eolr.ts
 // EOLR 教學精選：依壞邊數分類的代表 case（教學足夠，非競技全集）。
+// 假設前提：FB+SB 已建、CMLL 已解。alg 為純 LSE 公式（M/U 系），從 4a EO 起手；
+// 終態 = EO 完成 + UL/UR 歸位，其餘塊不離開 LSE 域（測試 solvableWithMU2 依賴此前提）。
 export interface EolrCase {
   id: string;            // 如 "2-arrow-front"
   badEdges: 0 | 2 | 4 | 6;
@@ -581,17 +623,17 @@ export function annotate(alg: string): FingertrickHint[] {
 
 **Files:** Create `src/lib/timer/stats.ts`、`src/lib/timer/storage.ts`、`tests/timer/stats.test.ts`、`tests/timer/storage.test.ts`；Modify `vite.config.ts`（vitest environment）、`package.json`（happy-dom）
 
-- [ ] **Step 5.1 裝 happy-dom 並設 vitest 環境**
+- [ ] **Step 5.1 裝 happy-dom（僅 storage 測試用，不設全域）**
 
 ```bash
 npm i -D happy-dom
 ```
 
-`vite.config.ts` 加：
+vitest 環境維持 node 預設（KPuzzle 測試純計算跑 node 最快）。只在需要 DOM 的測試檔頂部加 docblock：
 
 ```ts
-// vite.config.ts 內 defineConfig 物件新增（需 `/// <reference types="vitest/config" />`）：
-test: { environment: "happy-dom" },
+// tests/timer/storage.test.ts 第一行：
+// @vitest-environment happy-dom
 ```
 
 - [ ] **Step 5.2 寫失敗測試**
@@ -632,6 +674,7 @@ describe("timer stats（WCA 規則）", () => {
 ```
 
 ```ts
+// @vitest-environment happy-dom
 // tests/timer/storage.test.ts
 import { describe, it, expect, beforeEach } from "vitest";
 import { loadSessions, saveSessions, newSession } from "../../src/lib/timer/storage";
@@ -850,7 +893,7 @@ export async function newWcaScramble(): Promise<string> {
 
 **Files:** Create `src/components/CubeViewer.tsx`、`src/data/stickering.ts`、`tests/data/stickering.test.ts`
 
-- [ ] **Step 8.1 stickering.ts**：Roux 各段 mask。格式用 twisty-player 的 `experimentalStickeringMaskOrbits` 字串（`"EDGES:...,CORNERS:...,CENTERS:..."`，字元 `-`=正常、`D`=調暗、`I`=忽略）。**orbit piece 順序沿用 Task 1 bootstrap 確認的 EDGE_ORDER/CORNER_ORDER**。定義：`FB_MASK`（只亮 DL/FL/BL/DLF/DBL+L/D 中心）、`SB_MASK`、`CMLL_MASK`（亮 U 角）、`LSE_MASK`（亮 6 邊+UFDB 中心）、`FULL`。寫單元測試驗證 mask 字串長度 = 12/8/6 段。實作時以 cubing.js 原始碼（`node_modules/cubing/dist/lib/.../mask` 區）確認字元集，截圖驗證視覺效果。
+- [ ] **Step 8.1 stickering.ts**：Roux 各段 mask。格式用 twisty-player 的 `experimentalStickeringMaskOrbits` 字串（`"EDGES:...,CORNERS:...,CENTERS:..."`，字元 `-`=正常、`D`=調暗、`I`=忽略）。完整範例（12 邊/8 角/6 中心）：`"EDGES:DDDDDDDDDDD-,CORNERS:D-------,CENTERS:------"`（最後一邊亮、第一角暗、其餘照常——實際字元集以 node_modules 原始碼為準）。**orbit piece 順序沿用 Task 1 bootstrap 確認的 EDGE_ORDER/CORNER_ORDER**。定義：`FB_MASK`（只亮 DL/FL/BL/DLF/DBL+L/D 中心）、`SB_MASK`、`CMLL_MASK`（亮 U 角）、`LSE_MASK`（亮 6 邊+UFDB 中心）、`FULL`。寫單元測試驗證 mask 字串長度 = 12/8/6 段。實作時以 cubing.js 原始碼（`node_modules/cubing/dist/lib/.../mask` 區）確認字元集，截圖驗證視覺效果。
 - [ ] **Step 8.2 CubeViewer.tsx**
 
 ```tsx
@@ -882,9 +925,9 @@ export function CubeViewer({ alg = "", setupAlg = "", mask, visualization = "3D"
       hintFacelets: "none", backView: "none", background: "none",
       controlPanel: controls ? "bottom-row" : "none",
       visualization: visualization === "2D" ? "2D" : "3D",
+      // TwistyPlayerConfig 介面已含此欄位，constructor 直傳（型別安全，勿用 setter cast）
+      ...(mask ? { experimentalStickeringMaskOrbits: mask } : {}),
     });
-    if (mask) (player as unknown as { experimentalStickeringMaskOrbits: string })
-      .experimentalStickeringMaskOrbits = mask;
     player.style.width = `${size}px`;
     player.style.height = `${size}px`;
     container.appendChild(player);
@@ -961,6 +1004,7 @@ export function CubeViewer({ alg = "", setupAlg = "", mask, visualization = "3D"
   4. **LSE**：4a EO（壞邊辨識：U/D 色朝前後 = 壞）→ 4b UL/UR → 4c EP，M2/U2 節奏範例。
   5. **EOLR 進階**：EO 與 LR 合併處理的動機（省 5-8 步）、case 表連結、何時該學（sub-20 後）。
   - 內容由實作 agent 起草，**controller 逐章審校**（魔方術語正確性：橋式社群慣用語）。每章末「下一章」導航。
+  - **每章最低標準（可查核）**：繁中正文 ≥600 字（不含公式）、≥2 個含 setupAlg 的 CubeViewer 範例、章末「下一章」連結；公式正確性由 controller 對照 data 層審校。
 - [ ] **Step 12.3 Home 頁**：hero（標語「用橋式，更少步數解開 3x3」+ CubeViewer autoplay 示範一條短打亂解）、四階段卡片（各配 mask 圖 + 一句話）、學習路線圖（新手→2-look→42→EOLR 時間軸）、四個功能入口卡（教學/練習器/公式表/計時器）。
 - [ ] **Step 12.4 驗證**：build；playwright 截圖每章 + 首頁（桌機 1280 + 手機 390 寬雙截圖）。
 - [ ] **Step 12.5 Commit**：`git commit -m "feat(content): 教學六章 + 首頁"`
@@ -1017,4 +1061,24 @@ jobs:
 
 ## Plan Review Result
 
-（plan-review 後填寫）
+```
+Verdict: APPROVE WITH CHANGES
+Reviewer: plan-reviewer subagent（general-purpose / sonnet）
+Date: 2026-06-13
+Findings: { Critical: 0, High: 2, Medium: 4, Low: 2, Informational: 5 }
+Codebase reality check（controller-run）: 9/9 引用驗證通過
+Scope/design-creep audit: clean（6 條 Non-goals 全數通過，rev1 solver 殘留 = 0）
+Applied changes:
+  - H1 Task 8: stickering mask 改 constructor 直傳（TwistyPlayerConfig 介面已含），
+    刪 as-unknown-as setter cast
+  - H2 Task 1: 插入 Step 1.2b orbit 名稱 bootstrap（具體指令 + 預期輸出），
+    解 EDGE_ORDER 空陣列 blocking 問題
+  - M1 Task 1: 補 wide/rotation 鏡像測試（r→l'、x→x'）
+  - M2 Task 5: happy-dom 改 per-file docblock，vitest 全域維持 node
+  - M3 Task 3: eolr.ts schema 註明「FB+SB+CMLL 已完成」前提
+  - M4 Task 12: 教學章節可查核最低標準（≥600 字、≥2 CubeViewer、章末導航）
+  - L1 Task 8: 補 mask 字串完整格式範例
+未套用: L2（DrillCard RTL 測試——playwright 驗收已足，記為技術債）
+Spot-check（anti-cheat）: H1 引用之 cast 原文、H2 引用之空陣列 + guard 斷言
+均存在於 plan，finding 屬實。
+```
