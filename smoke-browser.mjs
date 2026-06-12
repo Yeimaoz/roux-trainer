@@ -4,7 +4,7 @@
 //    視覺驗證靠 /tmp/roux-smoke.png 截圖人工確認）
 import { chromium } from "playwright";
 
-const url = process.argv[2] ?? "http://localhost:4173/roux-trainer/";
+const url = process.argv[2] ?? "http://localhost:4173/roux-trainer/#/smoke";
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage();
@@ -15,7 +15,7 @@ try {
   });
 
   await page.goto(url, { waitUntil: "domcontentloaded" });
-  await page.waitForSelector('main[data-status="ready"]', { timeout: 60000 });
+  await page.waitForSelector('#smoke-root[data-status="ready"]', { timeout: 60000 });
   const scramble = (await page.textContent("#scramble-output"))?.trim() ?? "";
   if (scramble.split(" ").length < 15) throw new Error(`scramble 太短: "${scramble}"`);
   await page.waitForSelector("twisty-player", { timeout: 10000 });
