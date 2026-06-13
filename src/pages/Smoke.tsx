@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { randomScrambleForEvent } from "cubing/scramble";
 import { TwistyPlayer } from "cubing/twisty";
+import { CubeViewer } from "../components/CubeViewer";
+import { STAGE_STICKERINGS } from "../data/stickering";
 
 // cubing.js 整合 canary（smoke-browser.mjs 驗證用）：出題 + 3D 渲染。
 export default function Smoke() {
@@ -56,6 +58,29 @@ export default function Smoke() {
         {status === "error" && `錯誤：${error}`}
       </p>
       <div ref={viewerRef} style={{ width: 480, height: 360 }} />
+      <h2>CubeViewer mask 驗證</h2>
+      <div id="mask-demos" style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        <figure>
+          <CubeViewer stickering={STAGE_STICKERINGS.fb} size={180} />
+          <figcaption>FB mask</figcaption>
+        </figure>
+        <figure>
+          <CubeViewer stickering={STAGE_STICKERINGS.cmll} size={180} />
+          <figcaption>CMLL mask</figcaption>
+        </figure>
+        <figure>
+          <CubeViewer stickering={STAGE_STICKERINGS.lse} size={180} />
+          <figcaption>LSE mask</figcaption>
+        </figure>
+        <figure>
+          <CubeViewer alg="R U R' U'" controls size={180} />
+          <figcaption>controls only</figcaption>
+        </figure>
+        <figure>
+          <CubeViewer alg="R U R' U'" autoplay size={180} />
+          <figcaption>autoplay only</figcaption>
+        </figure>
+      </div>
     </div>
   );
 }

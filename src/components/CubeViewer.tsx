@@ -6,8 +6,11 @@ export interface CubeViewerProps {
   alg?: string;
   /** 前置打亂（題目狀態） */
   setupAlg?: string;
-  /** experimentalStickeringMaskOrbits 字串（見 data/stickering.ts） */
-  mask?: string;
+  /**
+   * cubing.js 內建命名 stickering（見 data/stickering.ts STAGE_STICKERINGS）。
+   * 注意：自訂 experimentalStickeringMaskOrbits 在 0.63 有 boot 時序雷，不要用。
+   */
+  stickering?: string;
   visualization?: "3D" | "2D";
   controls?: boolean;
   autoplay?: boolean;
@@ -18,7 +21,7 @@ export interface CubeViewerProps {
 export function CubeViewer({
   alg = "",
   setupAlg = "",
-  mask,
+  stickering,
   visualization = "3D",
   controls = false,
   autoplay = false,
@@ -31,14 +34,15 @@ export function CubeViewer({
     if (!container) return;
     const player = new TwistyPlayer({
       puzzle: "3x3x3",
-      alg,
-      experimentalSetupAlg: setupAlg,
+      // 空字串會讓 0.63 的 3D 渲染整顆消失（實測），只傳非空值
+      ...(alg ? { alg } : {}),
+      ...(setupAlg ? { experimentalSetupAlg: setupAlg } : {}),
       hintFacelets: "none",
       backView: "none",
       background: "none",
       controlPanel: controls ? "bottom-row" : "none",
       visualization: visualization === "2D" ? "2D" : "3D",
-      ...(mask ? { experimentalStickeringMaskOrbits: mask } : {}),
+      ...(stickering ? { experimentalStickering: stickering } : {}),
     });
     player.style.width = `${size}px`;
     player.style.height = `${size}px`;
@@ -47,7 +51,7 @@ export function CubeViewer({
     return () => {
       player.remove();
     };
-  }, [alg, setupAlg, mask, visualization, controls, autoplay, size]);
+  }, [alg, setupAlg, stickering, visualization, controls, autoplay, size]);
 
   return <div ref={ref} style={{ width: size, height: size }} />;
 }
