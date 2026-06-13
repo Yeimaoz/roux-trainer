@@ -110,7 +110,7 @@ export function OverviewLesson({ onNext }: { onNext?: () => void }) {
             <tr>
               <td>平均步數</td>
               <td className="lesson-compare-better">~48 步</td>
-              <td>~58~63 步</td>
+              <td>~55-60 步</td>
             </tr>
             <tr>
               <td>需要記憶的公式數</td>
@@ -139,8 +139,8 @@ export function OverviewLesson({ onNext }: { onNext?: () => void }) {
             </tr>
             <tr>
               <td>競速頂尖表現</td>
-              <td className="lesson-compare-better">Max Park 等頂尖使用橋式</td>
-              <td className="lesson-compare-better">Felix Zemdegs 等使用 CFOP</td>
+              <td className="lesson-compare-better">Kian Mansouri、Sean Villanueva 等使用橋式</td>
+              <td className="lesson-compare-better">Max Park、Felix Zemdegs 等使用 CFOP</td>
             </tr>
           </tbody>
         </table>

@@ -65,7 +65,7 @@ export function CmllLesson({ onNext }: { onNext?: () => void }) {
       <h2>核心公式：Sune 家族</h2>
 
       <p>
-        7 條角定向公式中，最重要的是 <strong>Sune</strong>（S 形狀）和 <strong>Anti-Sune</strong>（AS 形狀）。
+        7 條角定向公式中，最重要的是 <strong>Sune</strong> 和 <strong>Anti-Sune</strong>（即 CMLL 完整表裡 S 組與 AS 組對應的形狀）。
         這兩條公式的特點是節奏感強、手感好，而且 6 條其他的定向公式都可以從它們衍生：
         某些情況可以做兩次 Sune 或一次 Anti-Sune 加一次 Sune 解決。
       </p>
@@ -85,7 +85,7 @@ export function CmllLesson({ onNext }: { onNext?: () => void }) {
             <h4>Sune（S 形）</h4>
             <code className="alg">{SUNE}</code>
             <p>
-              辨識：一個角已轉正在左前，頂色朝前。
+              辨識：只有一個角已轉正（其餘三角頂色朝側面），先 AUF 把已轉正的角擺到左前。
               節奏：R 起手，食指推 U 一氣呵成。
               記憶口訣：「右上右，右雙右」。
             </p>
@@ -150,7 +150,7 @@ export function CmllLesson({ onNext }: { onNext?: () => void }) {
       </p>
 
       <ol>
-        <li>O 組（2 條）——最常見的形狀，O-perm 對角換</li>
+        <li>O 組（2 條）——頂色已全朝上，只差排列：相鄰換（T-perm）與對角換（Y-perm）兩種</li>
         <li>U 組（6 條）——延伸 Sune 家族，手感相近</li>
         <li>T 組（6 條）——辨識直觀，常用</li>
         <li>H 組（4 條）——對稱形狀，容易辨識</li>
