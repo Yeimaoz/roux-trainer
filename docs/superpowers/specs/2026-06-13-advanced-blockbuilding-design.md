@@ -85,8 +85,9 @@ No migration — 純新增。不動既有資料/路由行為。
 | 對象 | 測試 | CI |
 |---|---|---|
 | 每個 advanced case | KPuzzle：setup → fbSolution → FB 五塊歸位；→ sbSolution → FB+SB 十塊歸位 | ✅ Vitest |
-| SB moveset 合法性 | sbSolution 只含 R/r/U/M 系 token | ✅ Vitest |
+| SB moveset 合法性 | sbSolution 每 token 過白名單 `/^[RrUM](2\|')?$/`（嚴格擋 l/L/Lw/Rw/d/b 等廣義記法，已實測） | ✅ Vitest |
 | setupAlg 一致性 | setupAlg == invert(fbSolution + sbSolution) | ✅ Vitest |
+| naive 等效性 | naive.alg 與 sbSolution 淨效果相等（netEqual）→ naive 也能從同態解兩橋；步數 > sb | ✅ Vitest |
 | tag 分布 | 四類各 ≥3 | ✅ Vitest |
 | UI | 進階頁 build + 截圖（卡片 render、分段播放）、手機 | ⚠️ 手動截圖 |
 | 教學三章 | build + 截圖；術語審校（領域 agent） | ⚠️ 手動 |
@@ -106,4 +107,19 @@ Standard git revert; no data side-effect。純前端新增，revert 對應 commi
 
 ## 11. Review Result
 
-> design-review 後填寫。
+```
+Verdict: APPROVE WITH CHANGES
+Reviewer: design+domain reviewer subagent（general-purpose / sonnet）
+Date: 2026-06-13
+Findings: { Critical: 0, High: 0, Medium: 1, Low: 2, Info: 1 }
+逆向構造正確性: 形式化驗證通過——⟨R,r,U,M⟩ 是 FB 五塊的 stabilizer 子群，
+  生成元各自不動 FB → 群封閉 → setup+fb=invert(sb) 不動 FB → FB 必歸位。
+  reviewer 跑 2000 組隨機 R/r/U/M 逆 + 七組邊界，全通過，無反例。
+處置:
+  - M(moveset 白名單): 實作 SB_TOKEN=/^[RrUM](2|')?$/ 實測擋掉 l/L/Lw/Rw/d/b/x，
+    已是嚴格白名單，finding 早已滿足；§8 補明文。
+  - L(naive KPuzzle 驗): 測試已用 netEqual(naive,sb) 驗等效（強於「可解」），已滿足。
+  - L(Ch.6 r/l 釐清): r 用 SB 段/全程、l 動 FB 五塊只能用 FB 段——交教學 agent B
+    內文釐清，controller 審其輸出時把關。
+  - Info(精選展示型): Ch.6 加一句「案例為精選展示型，真實打亂初始形狀更複雜」。
+```
