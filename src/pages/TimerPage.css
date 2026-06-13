@@ -1,0 +1,13 @@
+/* TimerPage.css — 計時器頁面佈局 */
+
+.timer-page-header {
+  margin-bottom: var(--sp-6);
+}
+.timer-page-header h1 {
+  margin: var(--sp-2) 0 var(--sp-1);
+}
+.timer-page-header p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 0;
+}

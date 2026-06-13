@@ -1,0 +1,305 @@
+/* ============================================================
+   Home 首頁
+   ============================================================ */
+
+.home {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--sp-4) var(--sp-12);
+}
+
+/* ── 區塊共用標題 ── */
+.home-section-header {
+  margin-bottom: var(--sp-6);
+}
+
+.home-section-header h2 {
+  margin: var(--sp-2) 0 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-12) 0 var(--sp-8);
+  min-height: 420px;
+}
+
+.home-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.home-hero-title {
+  margin: 0;
+  line-height: 1.15;
+}
+
+.home-hero-accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.home-hero-sub {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.home-hero-actions {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: var(--sp-2);
+}
+
+.home-hero-cta {
+  font-size: 1rem;
+  padding: var(--sp-3) var(--sp-6);
+}
+
+.home-hero-cube {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.home-hero-cube-label {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  margin: 0;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   四階段卡片
+   ============================================================ */
+
+.home-stages {
+  margin-top: var(--sp-12);
+}
+
+.home-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-4);
+}
+
+.home-stage-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--sp-6) var(--sp-4);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.home-stage-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.home-stage-viewer {
+  margin-bottom: var(--sp-3);
+}
+
+.home-stage-card h3 {
+  font-size: 1.05rem;
+  margin: 0 0 var(--sp-2);
+}
+
+.home-stage-card p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   學習路線圖
+   ============================================================ */
+
+.home-roadmap {
+  margin-top: var(--sp-12);
+}
+
+.home-roadmap-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: var(--sp-4);
+}
+
+.home-roadmap-step {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.home-roadmap-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--sp-2);
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.home-roadmap-dot span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1a1206;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.home-roadmap-card {
+  width: 180px;
+  padding: var(--sp-4);
+  margin: 0 var(--sp-2);
+}
+
+.home-roadmap-card h4 {
+  margin: 0 0 var(--sp-1);
+  font-size: 0.95rem;
+  color: var(--accent-strong);
+}
+
+.home-roadmap-card p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin: 0 0 var(--sp-2);
+  line-height: 1.5;
+}
+
+.home-roadmap-time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.home-roadmap-arrow {
+  font-size: 1.4rem;
+  color: var(--border-strong);
+  flex-shrink: 0;
+  margin: 0 var(--sp-1);
+  padding-top: 6px;
+}
+
+/* ============================================================
+   功能入口卡片
+   ============================================================ */
+
+.home-features {
+  margin-top: var(--sp-12);
+}
+
+.home-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-4);
+}
+
+.home-feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-6);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+  border-radius: var(--r-lg);
+}
+
+.home-feature-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  background: var(--bg-elev);
+  color: inherit;
+}
+
+.home-feature-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.home-feature-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.home-feature-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RWD
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    padding: var(--sp-8) 0 var(--sp-6);
+    min-height: unset;
+  }
+
+  .home-hero-cube {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-stages-grid,
+  .home-features-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-roadmap-track {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-roadmap-step {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-roadmap-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+
+  .home-roadmap-card {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-stages-grid,
+  .home-features-grid {
+    grid-template-columns: 1fr;
+  }
+}

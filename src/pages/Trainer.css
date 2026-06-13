@@ -1,0 +1,138 @@
+/* Trainer 頁 - case 辨識練習器 */
+
+.trainer-header {
+  margin-bottom: var(--sp-6);
+}
+
+.trainer-header h1 {
+  margin: var(--sp-2) 0 var(--sp-2);
+}
+
+.trainer-header p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 題庫選擇列 */
+.trainer-pool-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+
+.trainer-pool-sep {
+  width: 1px;
+  background: var(--border-strong);
+  align-self: stretch;
+  margin: 0 var(--sp-1);
+}
+
+/* 主體佈局：左卡 右資訊 */
+.trainer-main {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+/* 無題目狀態 */
+.trainer-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  min-height: 400px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-lg);
+  color: var(--text-faint);
+  font-size: 1rem;
+}
+
+.trainer-start-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border: none;
+  border-radius: var(--r-md);
+  color: #1a1206;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: var(--sp-3) var(--sp-8);
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+.trainer-start-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* 右側統計側欄 */
+.trainer-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.trainer-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+}
+
+.trainer-stat-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  margin-bottom: var(--sp-3);
+  display: block;
+}
+
+.trainer-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-1) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+.trainer-stat-row:last-child {
+  border-bottom: none;
+}
+.trainer-stat-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Pool info */
+.trainer-pool-info {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  line-height: 1.6;
+}
+
+/* RWD：手機版側欄移到下方 */
+@media (max-width: 768px) {
+  .trainer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-sidebar {
+    order: 2;
+  }
+
+  .trainer-pool-bar {
+    gap: var(--sp-1);
+  }
+}

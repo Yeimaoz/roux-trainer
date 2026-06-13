@@ -1,0 +1,286 @@
+/* ─────────────────────────────────────────────
+   Timer.css  —  WCA 計時器核心元件樣式
+   沿用設計系統 tokens，電子計時器風格
+───────────────────────────────────────────── */
+
+.timer-root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-6);
+  min-height: 0;
+}
+
+/* ── 打亂列 ── */
+.timer-scramble-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  min-height: 72px;
+}
+.timer-scramble-text {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  line-height: 1.6;
+  word-break: break-word;
+}
+.timer-scramble-text.loading {
+  color: var(--text-faint);
+  font-style: italic;
+}
+.timer-scramble-cube {
+  flex: 0 0 auto;
+}
+
+/* ── 計時主區 ── */
+.timer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8) var(--sp-4);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  position: relative;
+  min-height: 220px;
+  transition: border-color 0.15s;
+}
+.timer-main:hover {
+  border-color: var(--border-strong);
+}
+.timer-main.armed {
+  border-color: var(--c-green);
+  background: color-mix(in srgb, var(--bg-card) 80%, var(--c-green) 20%);
+}
+.timer-main.running {
+  border-color: var(--accent);
+  cursor: default;
+}
+
+/* ── 計時數字 ── */
+.timer-display {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(3.6rem, 12vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+  transition: color 0.12s;
+}
+.timer-display.armed {
+  color: var(--c-green);
+  font-size: clamp(2.4rem, 8vw, 4rem);
+}
+.timer-display.running {
+  color: var(--accent-strong);
+  text-shadow: 0 0 32px var(--accent-glow);
+}
+.timer-display.stopped {
+  color: var(--c-white);
+}
+
+/* ── inspection 倒數 ── */
+.timer-inspection {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+.timer-inspection.warn {
+  color: var(--c-yellow);
+  font-weight: 600;
+}
+.timer-inspection.danger {
+  color: var(--c-red);
+  font-weight: 700;
+  animation: blink 0.4s steps(1) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ── 計時提示文字 ── */
+.timer-hint {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+}
+
+/* ── inspection 開關 ── */
+.timer-inspection-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.timer-inspection-toggle input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.timer-inspection-toggle label {
+  cursor: pointer;
+}
+
+/* ── 統計欄 ── */
+.timer-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: var(--sp-2);
+}
+.timer-stat-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-2) var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.timer-stat-label {
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.timer-stat-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+  color: var(--text);
+  font-weight: 600;
+}
+.timer-stat-value.highlight {
+  color: var(--accent-strong);
+}
+
+/* ── 紀錄列表 ── */
+.timer-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.timer-session-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.timer-session-select {
+  background: var(--bg-elev);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: var(--sp-1) var(--sp-3);
+  font-size: 0.88rem;
+  font-family: var(--font-ui);
+  cursor: pointer;
+}
+.timer-session-select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.timer-history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  max-height: 320px;
+  overflow-y: auto;
+}
+.timer-history-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 0.88rem;
+}
+.timer-history-num {
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  min-width: 2em;
+  text-align: right;
+}
+.timer-history-time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  min-width: 6em;
+}
+.timer-history-time:hover {
+  color: var(--accent-strong);
+}
+.timer-history-time.dnf {
+  color: var(--c-red);
+}
+.timer-history-time.plus2 {
+  color: var(--c-yellow);
+}
+.timer-history-scramble {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.timer-history-del {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  padding: 2px var(--sp-2);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.timer-history-del:hover {
+  color: var(--c-red);
+  border-color: var(--c-red);
+  background: color-mix(in srgb, transparent 85%, var(--c-red) 15%);
+}
+
+/* ── RWD ── */
+@media (max-width: 600px) {
+  .timer-scramble-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+  }
+  .timer-scramble-cube {
+    align-self: center;
+  }
+  .timer-display {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+  .timer-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .timer-history-scramble {
+    display: none;
+  }
+}
