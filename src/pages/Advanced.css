@@ -1,0 +1,29 @@
+.adv-lead {
+  color: var(--text-dim);
+  max-width: 64ch;
+  margin: var(--sp-2) 0 var(--sp-6);
+  line-height: 1.75;
+}
+.adv-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+}
+.adv-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  margin-bottom: var(--sp-4);
+}
+.adv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-4);
+}
+
+@media (max-width: 500px) {
+  .adv-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,6 +5,9 @@ import { SbLesson, SB_TITLE } from "../data/lessons/sb";
 import { CmllLesson, CMLL_TITLE } from "../data/lessons/cmll";
 import { LseLesson, LSE_TITLE } from "../data/lessons/lse";
 import { EolrLesson, EOLR_TITLE } from "../data/lessons/eolr";
+import { EfficiencyLesson, EFFICIENCY_TITLE } from "../data/lessons/efficiency";
+import { TransitionLesson, TRANSITION_TITLE } from "../data/lessons/transition";
+import { PairingKeyholeLesson, PAIRING_KEYHOLE_TITLE } from "../data/lessons/pairing-keyhole";
 import "./Learn.css";
 
 const CHAPTERS = [
@@ -14,6 +17,9 @@ const CHAPTERS = [
   { id: 3, title: CMLL_TITLE, eyebrow: "Ch.3" },
   { id: 4, title: LSE_TITLE, eyebrow: "Ch.4" },
   { id: 5, title: EOLR_TITLE, eyebrow: "Ch.5" },
+  { id: 6, title: EFFICIENCY_TITLE, eyebrow: "Ch.6" },
+  { id: 7, title: TRANSITION_TITLE, eyebrow: "Ch.7" },
+  { id: 8, title: PAIRING_KEYHOLE_TITLE, eyebrow: "Ch.8" },
 ];
 
 function ChapterContent({
@@ -39,6 +45,12 @@ function ChapterContent({
       return <LseLesson onNext={handleNext} />;
     case 5:
       return <EolrLesson onNext={handleNext} />;
+    case 6:
+      return <EfficiencyLesson onNext={handleNext} />;
+    case 7:
+      return <TransitionLesson onNext={handleNext} />;
+    case 8:
+      return <PairingKeyholeLesson onNext={handleNext} />;
     default:
       return <OverviewLesson onNext={handleNext} />;
   }

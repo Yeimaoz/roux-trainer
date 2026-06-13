@@ -8,6 +8,7 @@ const Trainer = lazy(() => import("./pages/Trainer"));
 const Algs = lazy(() => import("./pages/Algs"));
 const TimerPage = lazy(() => import("./pages/TimerPage"));
 const Smoke = lazy(() => import("./pages/Smoke"));
+const Advanced = lazy(() => import("./pages/Advanced"));
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="trainer" element={<Trainer />} />
             <Route path="algs" element={<Algs />} />
             <Route path="timer" element={<TimerPage />} />
+            <Route path="advanced" element={<Advanced />} />
             <Route path="smoke" element={<Smoke />} />
           </Route>
         </Routes>

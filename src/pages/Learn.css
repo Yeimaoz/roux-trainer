@@ -399,6 +399,27 @@
   margin: var(--sp-4) 0;
 }
 
+/* 重點提示框（橙左框） */
+.lesson-callout {
+  background: var(--accent-glow);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3) var(--sp-4);
+  margin: var(--sp-4) 0;
+}
+.lesson-callout strong {
+  color: var(--accent-strong);
+}
+
+/* 輕量說明（暗色斜體） */
+.lesson-note {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-left: 2px solid var(--border-strong);
+  padding-left: var(--sp-3);
+  margin: var(--sp-4) 0;
+}
+
 .lesson-example-card {
   display: flex;
   gap: var(--sp-4);

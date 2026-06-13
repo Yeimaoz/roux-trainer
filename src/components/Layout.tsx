@@ -7,6 +7,7 @@ const LINKS = [
   { to: "/learn", label: "教學" },
   { to: "/trainer", label: "練習器" },
   { to: "/algs", label: "公式表" },
+  { to: "/advanced", label: "進階" },
   { to: "/timer", label: "計時器" },
 ];
 
