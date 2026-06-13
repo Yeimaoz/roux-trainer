@@ -1,34 +1,43 @@
 :root {
-  /* 表面 */
-  --bg: #0e1116;
-  --bg-raised: #161b23;
-  --bg-card: #1b212b;
-  --border: #2a3342;
-  --border-strong: #3a465a;
+  /* 表面：深色工作室，帶藍黑而非純黑 */
+  --bg: #0b0e14;
+  --bg-raised: #12161f;
+  --bg-card: #161b26;
+  --bg-elev: #1c2230;
+  --border: #252c3a;
+  --border-strong: #36405263;
   /* 文字 */
-  --text: #e8edf4;
-  --text-dim: #9aa7b8;
-  --text-faint: #5d6b7e;
-  /* 品牌：方塊六色取材，主色橙（左橋色） */
-  --accent: #f59e0b;
-  --accent-strong: #fbbf24;
-  --c-green: #22c55e;
-  --c-red: #ef4444;
-  --c-blue: #3b82f6;
-  --c-yellow: #eab308;
-  --c-white: #f1f5f9;
-  --c-orange: #f97316;
+  --text: #eaeff7;
+  --text-dim: #97a3b6;
+  --text-faint: #5b6678;
+  /* 品牌主色：左橋橙；強調漸層 */
+  --accent: #ff7a18;
+  --accent-strong: #ffa14a;
+  --accent-glow: #ff7a1833;
+  /* 方塊六色（強調/標籤/圖例） */
+  --c-white: #f4f7fb;
+  --c-yellow: #ffd11a;
+  --c-green: #2fcc66;
+  --c-blue: #2f7dff;
+  --c-red: #ee3b3b;
+  --c-orange: #ff7a18;
   /* 字體 */
-  --font-ui: "Noto Sans TC", system-ui, sans-serif;
+  --font-display: "Sora", "Noto Sans TC", system-ui, sans-serif;
+  --font-ui: "Noto Sans TC", "Sora", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   /* 圓角 / 間距 */
   --r-sm: 6px;
   --r-md: 10px;
   --r-lg: 16px;
+  --r-xl: 22px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
   --sp-4: 16px;
   --sp-6: 24px;
   --sp-8: 32px;
+  --sp-12: 48px;
+  /* 陰影 */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 16px 48px rgba(0, 0, 0, 0.55);
 }

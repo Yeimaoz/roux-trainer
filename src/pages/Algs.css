@@ -1,0 +1,59 @@
+.algs-lead {
+  color: var(--text-dim);
+  max-width: 60ch;
+  margin: var(--sp-2) 0 var(--sp-6);
+}
+.algs-tabs {
+  display: flex;
+  gap: var(--sp-2);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+}
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim);
+  padding: var(--sp-3) var(--sp-3);
+  font-size: 0.98rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin-bottom: -1px;
+}
+.tab:hover {
+  color: var(--text);
+}
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.algs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+}
+.algs-section {
+  margin-bottom: var(--sp-8);
+}
+.algs-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  font-size: 1.15rem;
+  margin: 0 0 var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px dashed var(--border);
+}
+.algs-group-title span {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  font-weight: 400;
+}
+.algs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--sp-3);
+}

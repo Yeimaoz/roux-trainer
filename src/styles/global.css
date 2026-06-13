@@ -12,10 +12,30 @@ body {
 
 body {
   background: var(--bg);
+  /* 工作室氛圍：細網格 + 頂部橙色暈光 */
+  background-image:
+    radial-gradient(1200px 480px at 78% -8%, var(--accent-glow), transparent 60%),
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
+  background-position: 0 0, 0 0, 0 0;
   color: var(--text);
   font-family: var(--font-ui);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+h1 {
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
 }
 
 a {
@@ -36,44 +56,80 @@ button {
   cursor: pointer;
 }
 
-/* 共用元件基底 */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: var(--sp-4);
+  box-shadow: var(--shadow-card);
 }
 
 .btn {
-  background: var(--bg-raised);
+  background: var(--bg-elev);
   color: var(--text);
   border: 1px solid var(--border-strong);
   border-radius: var(--r-sm);
   padding: var(--sp-2) var(--sp-4);
   font-size: 0.95rem;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, transform 0.05s;
 }
 .btn:hover {
   border-color: var(--accent);
 }
+.btn:active {
+  transform: translateY(1px);
+}
 .btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border-color: transparent;
   color: #1a1206;
   font-weight: 700;
 }
-.btn-primary:hover {
-  background: var(--accent-strong);
-}
 
 .page {
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: var(--sp-6) var(--sp-4) var(--sp-8);
+  padding: var(--sp-8) var(--sp-4) var(--sp-12);
 }
 
 .alg {
   font-family: var(--font-mono);
   font-size: 1.05rem;
   letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 章節/頁首小標籤 */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* 方塊色圖例點 */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.chip[aria-pressed="true"],
+.chip.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  font-weight: 600;
 }
