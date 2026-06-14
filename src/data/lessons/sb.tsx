@@ -74,7 +74,7 @@ export function SbLesson({ onNext }: { onNext?: () => void }) {
 
       <ul>
         <li>
-          <strong>DR 邊</strong>（Down-Right 邊）：底層右側邊，白紅雙色邊（白底紅右）。
+          <strong>DR 邊</strong>（Down-Right 邊）：底層右側邊，黃紅雙色邊（黃底紅右）。
           與 FB 的 DL 邊對稱。
         </li>
         <li>
@@ -84,10 +84,10 @@ export function SbLesson({ onNext }: { onNext?: () => void }) {
           <strong>BR 邊</strong>（Back-Right 邊）：背面右側邊，藍紅雙色。
         </li>
         <li>
-          <strong>DFR 角</strong>（Down-Front-Right 角）：底層右前角，白綠紅三色角。
+          <strong>DFR 角</strong>（Down-Front-Right 角）：底層右前角，黃綠紅三色角。
         </li>
         <li>
-          <strong>DRB 角</strong>（Down-Right-Back 角）：底層右後角，白藍紅三色角。
+          <strong>DRB 角</strong>（Down-Right-Back 角）：底層右後角，黃藍紅三色角。
         </li>
       </ul>
 
@@ -95,7 +95,7 @@ export function SbLesson({ onNext }: { onNext?: () => void }) {
 
       <p>
         與第一橋的 DL 邊先行策略類似，第二橋通常也從 <strong>DR 邊</strong> 開始處理。
-        DR 邊是白紅雙色邊，在 R/r/U/M 的動作集合內很容易找到放入底層的路徑。
+        DR 邊是黃紅雙色邊，在 R/r/U/M 的動作集合內很容易找到放入底層的路徑。
       </p>
 
       <p>

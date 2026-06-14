@@ -25,7 +25,7 @@ export function EolrLesson({ onNext }: { onNext?: () => void }) {
         標準橋式解法在 CMLL 完成後，LSE 步驟是：
         先 EO（邊定向）→ 再 UL/UR 歸位 → 最後 EP。
         EOLR 的核心洞察是：把 EO 和 UL/UR 歸位<strong>合併在 LSE 第一步同時完成</strong>——
-        在做邊定向的那一組 M/U 手順裡，順手把 <strong>UL/UR 邊（橙黃邊和紅黃邊）</strong>
+        在做邊定向的那一組 M/U 手順裡，順手把 <strong>UL/UR 邊（橙白邊和紅白邊）</strong>
         一起送進 UL/UR 位置（頂層側邊）。
         這樣 LSE 只剩 4a（EO+LR）+ 4c（EP），省掉整個 4b 步驟。
       </p>
@@ -82,7 +82,7 @@ export function EolrLesson({ onNext }: { onNext?: () => void }) {
           如果 LSE 基礎不穩，學 EOLR 只會更混亂。
         </li>
         <li>
-          <strong>UL/UR 邊辨識</strong>：能快速在打亂狀態中找到橙黃邊（UL）和紅黃邊（UR）。
+          <strong>UL/UR 邊辨識</strong>：能快速在打亂狀態中找到橙白邊（UL）和紅白邊（UR）。
           EOLR 的核心挑戰就是在處理 EO 的同時，
           心裡記住 UL/UR 在哪裡並引導它們到正確位置。
         </li>
